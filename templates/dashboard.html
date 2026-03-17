@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<a href="/download_report">
+    <button style="padding:10px 20px;background:#22c55e;color:white;border:none;border-radius:8px;">
+        📄 Download PDF Report
+    </button>
+</a>
+
+<br><br>
+
+<a href="/download_excel">
+    <button style="padding:10px 20px;background:#38bdf8;color:white;border:none;border-radius:8px;">
+        📊 Download Excel Report
+    </button>
+</a>
+
+<p>Welcome {{name}} 👋</p>
+
+<div class="cards">
+
+    <div class="card blue">
+        <h3>Total Inventory</h3>
+        <p>₹ {{ inventory }}</p>
+    </div>
+
+    <div class="card green">
+        <h3>Revenue</h3>
+        <p>₹ {{ revenue }}</p>
+    </div>
+
+    <div class="card purple">
+        <h3>Profit</h3>
+        <p>₹ {{ profit }}</p>
+    </div>
+
+</div>
+
+<br>
+
+<div class="card red">
+    <h3>Total Expenses</h3>
+    <p>₹ {{ total_expense }}</p>
+</div>
+
+<br>
+
+{% if low_stock > 0 %}
+<div style="color:red; font-weight:bold;">
+    ⚠ {{ low_stock }} products have Low Stock!
+</div>
+{% else %}
+<div style="color:lightgreen;">
+    ✅ All stock levels healthy
+</div>
+{% endif %}
+
+<hr>
+<h2>📊 Advanced Analytics</h2>
+
+<div id="salesChart" style="height:350px;"></div>
+
+<br>
+<div id="profitChart" style="height:350px;"></div>
+
+<br>
+<div id="expenseChart" style="height:350px;"></div>
+
+<script>
+
+    // SALES LINE CHART
+    var salesData = {
+        x: {{ sales_dates | safe }},
+        y: {{ sales_values | safe }},
+        type: "scatter",
+        mode: "lines+markers",
+        line: { color: "#38bdf8", width: 3 }
+    };
+
+    Plotly.newPlot("salesChart", [salesData], {
+        paper_bgcolor: "#020617",
+        plot_bgcolor: "#020617",
+        font: { color: "white" },
+        title: "Sales Trend"
+    });
+
+    // PROFIT LINE CHART
+    var profitData = {
+        x: {{ profit_dates | safe }},
+        y: {{ profit_values | safe }},
+        type: "scatter",
+        mode: "lines+markers",
+        line: { color: "#a855f7", width: 3 }
+    };
+
+    Plotly.newPlot("profitChart", [profitData], {
+        paper_bgcolor: "#020617",
+        plot_bgcolor: "#020617",
+        font: { color: "white" },
+        title: "Profit Trend"
+    });
+
+    // EXPENSE PIE CHART
+    var expenseData = [{
+        values: {{ expense_values | safe }},
+        labels: {{ expense_categories | safe }},
+        type: "pie",
+        hole: 0.4
+    }];
+
+    Plotly.newPlot("expenseChart", expenseData, {
+        paper_bgcolor: "#020617",
+        font: { color: "white" },
+        title: "Expense Distribution"
+    });
+
+</script>
+
+{% endblock %}

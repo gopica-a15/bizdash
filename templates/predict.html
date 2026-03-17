@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>📈 Live Profit Prediction</h1>
+
+<br>
+
+<form method="POST" class="predict-form">
+
+    <label>Total Investment (₹)</label>
+    <input type="number" name="investment" required>
+
+    <label>Total Sales (₹)</label>
+    <input type="number" name="sales" required>
+
+    <label>Period (Months)</label>
+    <input type="number" name="months" required>
+
+    <button type="submit">Predict</button>
+
+</form>
+
+
+{% if result %}
+
+<hr>
+
+<div class="cards">
+
+    <div class="card blue">
+        <h3>Investment</h3>
+        <p>₹ {{ result.investment }}</p>
+    </div>
+
+    <div class="card green">
+        <h3>Sales</h3>
+        <p>₹ {{ result.sales }}</p>
+    </div>
+
+    <div class="card purple">
+        <h3>Profit</h3>
+        <p>₹ {{ result.profit }}</p>
+    </div>
+
+</div>
+
+<br>
+
+<div class="card green">
+    <h3>Profit Margin</h3>
+    <p>{{ result.margin }} %</p>
+</div>
+
+<hr>
+
+<h2>📊 Prediction Analysis</h2>
+
+<br>
+
+<!-- Line Chart -->
+<div id="lineChart" style="height:350px;"></div>
+
+<br>
+
+<!-- Pie Chart -->
+<div id="pieChart" style="height:350px;"></div>
+
+
+{% if graph_data %}
+
+<script>
+
+    /* LINE GRAPH */
+
+    var lineData = {
+        x: {{ graph_data.x | safe }},
+        y: {{ graph_data.y | safe }},
+        type: "scatter",
+        mode: "lines+markers",
+        line: {
+            color: "#38bdf8",
+            width: 4
+        },
+        marker: {
+            size: 8,
+            color: "#a855f7"
+        },
+        name: "Future Profit"
+    };
+
+    var lineLayout = {
+        paper_bgcolor: "#020617",
+        plot_bgcolor: "#020617",
+        font: { color: "white" },
+        title: "Future Profit Trend",
+        xaxis: { title: "Months" },
+        yaxis: { title: "Profit (₹)" }
+    };
+
+    Plotly.newPlot("lineChart", [lineData], lineLayout);
+
+
+    /* PIE CHART */
+
+    var pieData = [{
+        values: [
+            {{ pie_data.investment }},
+            {{ pie_data.sales }},
+            {{ pie_data.profit }}
+        ],
+        labels: ["Investment", "Sales", "Profit"],
+        type: "pie",
+        hole: 0.4,
+        marker: {
+            colors: ["#38bdf8", "#22c55e", "#a855f7"]
+        }
+    }];
+
+    var pieLayout = {
+        paper_bgcolor: "#020617",
+        font: { color: "white" },
+        title: "Investment vs Sales vs Profit"
+    };
+
+    Plotly.newPlot("pieChart", pieData, pieLayout);
+
+</script>
+
+{% endif %}
+
+{% endif %}
+
+{% endblock %}

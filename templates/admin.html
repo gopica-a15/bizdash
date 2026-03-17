@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>🛠 Admin Dashboard</h1>
+
+<p>System Monitoring Panel</p>
+
+<br>
+
+<div class="cards">
+
+    <div class="card blue">
+        <h3>Total Users</h3>
+        <p>{{ total_users }}</p>
+    </div>
+
+    <div class="card green">
+        <h3>Total Products</h3>
+        <p>{{ total_products }}</p>
+    </div>
+
+    <div class="card purple">
+        <h3>Total Sales Records</h3>
+        <p>{{ total_sales }}</p>
+    </div>
+
+    <div class="card red">
+        <h3>Total Expenses</h3>
+        <p>₹ {{ total_expenses }}</p>
+    </div>
+
+</div>
+
+<hr>
+
+<h2>📊 System Analytics</h2>
+
+<div id="userChart" style="height:350px;"></div>
+
+<br>
+
+<div id="activityChart" style="height:350px;"></div>
+
+<script>
+
+var userData = {
+    x: {{ user_dates | safe }},
+    y: {{ user_counts | safe }},
+    type: "scatter",
+    mode: "lines+markers",
+    line: { color: "#22c55e", width: 3 }
+};
+
+Plotly.newPlot("userChart", [userData], {
+    paper_bgcolor:"#020617",
+    plot_bgcolor:"#020617",
+    font:{color:"white"},
+    title:"User Growth"
+});
+
+var activityData = {
+    x: {{ activity_labels | safe }},
+    y: {{ activity_values | safe }},
+    type: "bar",
+    marker:{color:"#38bdf8"}
+};
+
+Plotly.newPlot("activityChart", [activityData], {
+    paper_bgcolor:"#020617",
+    plot_bgcolor:"#020617",
+    font:{color:"white"},
+    title:"System Activity"
+});
+
+</script>
+
+<hr>
+
+<h2>🧾 Recent Sales</h2>
+
+<table style="width:100%; border-collapse: collapse; text-align:left;">
+<tr style="background:#1e293b; color:white;">
+<th style="padding:10px;">Product</th>
+<th style="padding:10px;">Quantity</th>
+<th style="padding:10px;">Total Amount</th>
+<th style="padding:10px;">Date</th>
+</tr>
+
+{% for sale in recent_sales %}
+<tr style="border-bottom:1px solid #334155;">
+<td style="padding:10px;">{{ sale[0] }}</td>
+<td style="padding:10px;">{{ sale[1] }}</td>
+<td style="padding:10px;">₹ {{ sale[2] }}</td>
+<td style="padding:10px;">{{ sale[3] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<h2>⚠ Low Stock Products</h2>
+
+<table style="width:100%; border-collapse: collapse; text-align:left;">
+<tr style="background:#1e293b; color:white;">
+<th style="padding:10px;">Product</th>
+<th style="padding:10px;">Stock</th>
+</tr>
+
+{% for item in low_stock_products %}
+<tr style="border-bottom:1px solid #334155;">
+<td style="padding:10px;">{{ item[0] }}</td>
+<td style="padding:10px;">{{ item[1] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

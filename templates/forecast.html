@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>🤖 AI Sales Forecast</h1>
+
+<div id="forecastChart" style="height:400px;"></div>
+
+<script>
+
+var actualData = {
+    x: {{ dates | safe }},
+    y: {{ sales | safe }},
+    type: "scatter",
+    mode: "lines+markers",
+    name: "Actual Sales"
+};
+
+var futureX = [];
+for (var i = 1; i <= {{ predictions|length }}; i++) {
+    futureX.push("Future Day " + i);
+}
+
+var forecastData = {
+    x: futureX,
+    y: {{ predictions | safe }},
+    type: "scatter",
+    mode: "lines+markers",
+    name: "Forecast"
+};
+
+Plotly.newPlot("forecastChart", [actualData, forecastData]);
+
+</script>
+
+{% endblock %}

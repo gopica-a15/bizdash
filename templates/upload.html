@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>📤 Upload Bulk Data</h1>
+
+<br>
+
+<form method="POST" action="/upload" enctype="multipart/form-data" class="predict-form">
+
+    <label>Select Excel File (.xlsx)</label>
+
+    <input type="file" name="file" required>
+
+    <button type="submit">⚡ Analyze</button>
+
+</form>
+
+
+{% if summary %}
+
+<hr>
+
+<h2>📊 Summary</h2>
+
+<div class="cards">
+
+    <div class="card blue">
+        <h3>Total Investment</h3>
+        <p>₹ {{ summary.investment }}</p>
+    </div>
+
+    <div class="card green">
+        <h3>Total Sales</h3>
+        <p>₹ {{ summary.sales }}</p>
+    </div>
+
+    <div class="card purple">
+        <h3>Total Profit</h3>
+        <p>₹ {{ summary.profit }}</p>
+    </div>
+
+</div>
+
+<br>
+
+<div class="card green">
+    <h3>Profit Margin</h3>
+    <p>{{ summary.margin }} %</p>
+</div>
+
+<hr>
+
+<h2>📈 Charts</h2>
+
+<div id="barChart" style="height:350px;"></div>
+
+<br>
+
+<div id="pieChart" style="height:350px;"></div>
+
+
+<script>
+
+var barData = {
+    x: {{ chart_data.products | safe }},
+    y: {{ chart_data.stocks | safe }},
+    type: "bar",
+    marker: { color: "#38bdf8" }
+};
+
+var barLayout = {
+    paper_bgcolor: "#020617",
+    plot_bgcolor: "#020617",
+    font: { color: "white" },
+    title: "Stock by Product"
+};
+
+Plotly.newPlot("barChart", [barData], barLayout);
+
+
+var pieData = [{
+    values: {{ chart_data.category_values | safe }},
+    labels: {{ chart_data.categories | safe }},
+    type: "pie",
+    hole: 0.4
+}];
+
+var pieLayout = {
+    paper_bgcolor: "#020617",
+    font: { color: "white" },
+    title: "Category Distribution"
+};
+
+Plotly.newPlot("pieChart", pieData, pieLayout);
+
+</script>
+
+
+<hr>
+
+<h2>📄 Dataset Preview</h2>
+
+<div class="card">
+{{ preview | safe }}
+</div>
+
+
+{% endif %}
+
+{% endblock %}

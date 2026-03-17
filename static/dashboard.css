@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #0f172a;
+    color: white;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 230px;
+    background: #020617;
+    padding: 20px;
+}
+
+.logo {
+    color: #38bdf8;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #cbd5e1;
+    padding: 10px;
+    display: block;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: #1e293b;
+    color: #38bdf8;
+}
+
+/* Main Area */
+.main {
+    flex: 1;
+    padding: 30px;
+    background: #020617;
+}
+
+/* KPI Cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.card {
+    border-radius: 18px;
+    padding: 25px;
+    transition: 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.blue {
+    background: linear-gradient(to right, #2563eb, #38bdf8);
+}
+
+.green {
+    background: linear-gradient(to right, #22c55e, #4ade80);
+}
+
+.purple {
+    background: linear-gradient(to right, #7c3aed, #a855f7);
+}
+
+.card h3 {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Prediction Form */
+
+.predict-form {
+    background: #020617;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px black;
+}
+
+.predict-form label {
+    display: block;
+    margin-top: 15px;
+    color: #cbd5e1;
+}
+
+.predict-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: none;
+    background: #1e293b;
+    color: white;
+}
+
+.predict-form button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.predict-form button:hover {
+    background: #0ea5e9;
+}
+
+/* ======================
+   NEON PREDICTION FORM
+====================== */
+
+.neon-form {
+    max-width: 600px;
+    margin-top: 30px;
+}
+
+.neon-input {
+    display: flex;
+    align-items: center;
+    background: #020617;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border: 2px solid transparent;
+    transition: 0.3s;
+    box-shadow: 0 0 10px black;
+}
+
+.neon-input span {
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.neon-input input {
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 18px;
+    width: 100%;
+}
+
+/* Colors */
+
+.neon-input.blue {
+    border-color: #38bdf8;
+    box-shadow: 0 0 15px #38bdf8;
+}
+
+.neon-input.green {
+    border-color: #22c55e;
+    box-shadow: 0 0 15px #22c55e;
+}
+
+.neon-input.purple {
+    border-color: #a855f7;
+    box-shadow: 0 0 15px #a855f7;
+}
+
+/* Hover effect */
+
+.neon-input:hover {
+    transform: scale(1.02);
+}
+
+/* Button */
+
+.neon-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #38bdf8, #a855f7);
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0 0 20px #38bdf8;
+    transition: 0.3s;
+}
+
+.neon-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #a855f7;
+}
+
+.card {
+    border-radius: 18px;
+    padding: 25px;
+    transition: 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}

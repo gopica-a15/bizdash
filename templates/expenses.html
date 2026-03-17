@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>💸 Expenses Entry</h1>
+
+<br>
+
+<form method="POST">
+
+    <label>Expense Title</label>
+    <input type="text" name="title" required>
+
+    <label>Amount (₹)</label>
+    <input type="number" name="amount" required>
+
+    <label>Category</label>
+    <select name="category">
+        <option value="Rent">Rent</option>
+        <option value="Salary">Salary</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <button type="submit">Add Expense</button>
+
+</form>
+
+{% if message %}
+    <p style="color:lightgreen;">{{ message }}</p>
+{% endif %}
+
+{% endblock %}

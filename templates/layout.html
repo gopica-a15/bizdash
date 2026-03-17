@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/dashboard.css">
+
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <h2 class="logo">📊 BizDash</h2>
+
+        <ul>
+            <li><a href="/dashboard">🏠 Dashboard</a></li>
+            <li><a href="/predict">📈 Live Prediction</a></li>
+            <li><a href="/sales">💰 Sales Entry</a></li>
+            <li><a href="/expenses">💸 Expenses</a></li>
+            <li><a href="/inventory">📦 Inventory</a></li>
+            <li><a href="/upload">📤 Upload Bulk</a></li>
+            <li><a href="/forecast">🤖 AI Forecast</a></li>
+            <li><a href="/admin">🛠 Admin Panel</a></li>
+            <li><a href="/logout">🚪 Logout</a></li>
+        </ul>
+
+    </div>
+
+
+    <!-- MAIN AREA -->
+    <div class="main">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

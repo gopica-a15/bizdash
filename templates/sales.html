@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>💰 Sales Entry</h1>
+
+<br>
+
+<form method="POST">
+
+    <label>Select Product</label>
+    <select name="product" required>
+        {% for item in products %}
+            <option value="{{ item[1] }}">{{ item[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Quantity Sold</label>
+    <input type="number" name="quantity" required>
+
+    <button type="submit">Record Sale</button>
+
+</form>
+
+{% if message %}
+    <p style="color:lightgreen;">{{ message }}</p>
+{% endif %}
+
+{% endblock %}

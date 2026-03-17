@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>📦 Inventory</h1>
+
+<br>
+
+<table border="1" cellpadding="10" style="width:100%; color:white;">
+    <tr>
+        <th>Product</th>
+        <th>Cost Price</th>
+        <th>Selling Price</th>
+        <th>Stock</th>
+        <th>Category</th>
+        <th>Status</th>
+    </tr>
+
+    {% for item in products %}
+    <tr>
+        <td>{{ item[1] }}</td>
+        <td>₹ {{ item[2] }}</td>
+        <td>₹ {{ item[3] }}</td>
+        <td>{{ item[4] }}</td>
+        <td>{{ item[5] }}</td>
+
+        {% if item[4] < 20 %}
+            <td style="color:red;">Low Stock ⚠</td>
+        {% else %}
+            <td style="color:lightgreen;">Healthy</td>
+        {% endif %}
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
