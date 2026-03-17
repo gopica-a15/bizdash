@@ -70,9 +70,22 @@ def init_db():
 # ------------------ DEMO PRODUCTS ------------------
 
 def insert_demo_data():
+    import sqlite3
+
     conn = sqlite3.connect("users.db", timeout=10, check_same_thread=False)
     cur = conn.cursor()
 
+    # ------------------ INSERT USER ------------------
+    cur.execute("SELECT COUNT(*) FROM users")
+    user_count = cur.fetchone()[0]
+
+    if user_count == 0:
+        cur.execute("""
+            INSERT INTO users (name, email, password, role)
+            VALUES (?, ?, ?, ?)
+        """, ("Admin", "admin@gmail.com", "admin123", "admin"))
+
+    # ------------------ INSERT PRODUCTS ------------------
     cur.execute("SELECT COUNT(*) FROM products")
     count = cur.fetchone()[0]
 
@@ -91,11 +104,8 @@ def insert_demo_data():
             VALUES (?, ?, ?, ?, ?, ?)
         """, demo_products)
 
-        conn.commit()
-
+    conn.commit()
     conn.close()
-
-
 # ------------------ LOGIN ------------------
 
 @app.route("/")
